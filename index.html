@@ -348,11 +348,9 @@ function calculateAll() {
     if(document.getElementById('mlbl_dimuon')) {
         const el = document.getElementById('mlbl_dimuon');
         if (gioDiMuon > 0) {
-            el.innerText = '- ' + fN(truDiMuon);
-            el.style.color = '#c62828';
+            el.innerHTML = 'Giờ đi muộn<br><span style="color:#c62828">- ' + fN(truDiMuon) + '</span>';
         } else {
-            el.innerText = 'Giờ đi muộn';
-            el.style.color = '';
+            el.innerHTML = 'Giờ đi muộn';
         }
     }
 
