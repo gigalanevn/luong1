@@ -226,8 +226,9 @@
                 <td><div class="m-lbl">Công đoàn</div><div class="input-wrap">30,000</div></td>
                 <td>
                     <div class="m-lbl" id="mlbl_dimuon">Giờ đi muộn</div>
-                    <div class="input-wrap">
-                        <input type="text" class="save only-num-dot" id="gioDiMuon" placeholder="0" style="color:#c62828; font-weight:bold;">
+                    <div class="input-wrap" style="display:flex; align-items:center; gap:4px; padding: 4px;">
+                        <span id="r_dimuon" style="flex:1; color:#c62828; font-weight:bold; font-size:12px; text-align:center;"></span>
+                        <input type="text" class="save only-num-dot" id="gioDiMuon" placeholder="0" style="color:#c62828; font-weight:bold; width:50% !important; flex-shrink:0;">
                     </div>
                 </td>
                 <td><div class="m-lbl">Trừ khác</div><div class="input-wrap"><input type="text" class="money save only-num" id="trukhac" style="color:red"></div></td>
@@ -345,13 +346,11 @@ function calculateAll() {
     // TÍNH TRỪ ĐI MUỘN: lương tính TC / công TC / 8 * số giờ đi muộn
     const gioDiMuon = gV('gioDiMuon');
     const truDiMuon = gia1Gio * gioDiMuon;
+    if(document.getElementById('r_dimuon')) {
+        document.getElementById('r_dimuon').innerText = gioDiMuon > 0 ? ('- ' + fN(truDiMuon)) : '';
+    }
     if(document.getElementById('mlbl_dimuon')) {
-        const el = document.getElementById('mlbl_dimuon');
-        if (gioDiMuon > 0) {
-            el.innerHTML = 'Giờ đi muộn<br><span style="color:#c62828">- ' + fN(truDiMuon) + '</span>';
-        } else {
-            el.innerHTML = 'Giờ đi muộn';
-        }
+        document.getElementById('mlbl_dimuon').innerHTML = 'Giờ đi muộn';
     }
 
     const tongGiamTru = bh + 30000 + gV('trukhac') + truDiMuon;
