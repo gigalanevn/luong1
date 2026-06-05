@@ -78,6 +78,7 @@
             .input-wrap { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: flex-end; padding-right: 8px; overflow: hidden; }
             input:not(.chk-box):not(.input-name):not(.input-small) { width: 95% !important; text-align: right !important; height: 32px; }
             .res-val { color: #28a745; font-weight: bold; font-size: 10px; margin-top: 2px; }
+            #r_dimuon { display: none; }
         }
     </style>
 </head>
@@ -226,9 +227,9 @@
                 <td><div class="m-lbl">Công đoàn</div><div class="input-wrap">30,000</div></td>
                 <td>
                     <div class="m-lbl" id="mlbl_dimuon">Giờ đi muộn</div>
-                    <div class="input-wrap" style="display:flex; align-items:center; gap:4px; padding: 4px;">
-                        <span id="r_dimuon" style="flex:1; color:#c62828; font-weight:bold; font-size:12px; text-align:center;"></span>
-                        <input type="text" class="save only-num-dot" id="gioDiMuon" placeholder="0" style="color:#c62828; font-weight:bold; width:50% !important; flex-shrink:0;">
+                    <div class="input-wrap">
+                        <input type="text" class="save only-num-dot" id="gioDiMuon" placeholder="0" style="color:#c62828; font-weight:bold;">
+                        <span id="r_dimuon" style="color:#c62828; font-weight:bold; font-size:12px; margin-top:3px;"></span>
                     </div>
                 </td>
                 <td><div class="m-lbl">Trừ khác</div><div class="input-wrap"><input type="text" class="money save only-num" id="trukhac" style="color:red"></div></td>
@@ -350,7 +351,10 @@ function calculateAll() {
         document.getElementById('r_dimuon').innerText = gioDiMuon > 0 ? ('- ' + fN(truDiMuon)) : '';
     }
     if(document.getElementById('mlbl_dimuon')) {
-        document.getElementById('mlbl_dimuon').innerHTML = 'Giờ đi muộn';
+        const el = document.getElementById('mlbl_dimuon');
+        el.innerHTML = gioDiMuon > 0
+            ? 'Giờ đi muộn<br><span style="color:#c62828;font-size:11px;">- ' + fN(truDiMuon) + '</span>'
+            : 'Giờ đi muộn';
     }
 
     const tongGiamTru = bh + 30000 + gV('trukhac') + truDiMuon;
