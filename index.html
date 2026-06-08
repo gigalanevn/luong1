@@ -163,7 +163,7 @@
                 <td><div class="m-lbl">ĐT</div><div class="input-wrap"><input type="text" class="money save only-num" id="pcdt"><span class="res-val" id="r_pcdt"></span></div></td>
                 <td><div class="m-lbl">Nhà ở</div><div class="input-wrap"><input type="text" class="money save only-num" id="pcno"><span class="res-val" id="r_pcno"></span></div></td>
                 <td><div class="m-lbl">Đi lại</div><div class="input-wrap"><input type="text" class="money save only-num" id="pcdl"><span class="res-val" id="r_pcdl"></span></div></td>
-                <td><div class="m-lbl">C.Cần</div><div class="input-wrap"><input type="text" class="money save only-num" id="pccc"><span class="res-val" id="r_pccc"></span></div></td>
+                <td><div class="m-lbl">C.Cần <input type="checkbox" id="chk_cc" class="save chk-box" onchange="calculateAll()" checked title="Tích = không trừ chuyên cần"></div><div class="input-wrap"><input type="text" class="money save only-num" id="pccc"><span class="res-val" id="r_pccc"></span></div></td>
                 <td class="col-sum"><div class="m-lbl">  </div><span id="tong1Full" style="font-weight:bold">0</span></td>
             </tr>
         </tbody>
@@ -313,10 +313,11 @@ function calculateAll() {
     let tongThucTeMuc1 = 0;
 
     const list1 = ['luongCB','pccv','pckn','pcat','pcpccc','pcsk','pctn','pcdt','pcno','pcdl','pccc'];
+    const khongTruCC = document.getElementById('chk_cc') && document.getElementById('chk_cc').checked;
     list1.forEach(id => {
         let giaTriGoc = gV(id); 
         tong1LyThuyet += giaTriGoc;
-        let giaTriThucTe = giaTriGoc * tile;
+        let giaTriThucTe = (id === 'pccc' && khongTruCC) ? giaTriGoc : giaTriGoc * tile;
         tongThucTeMuc1 += giaTriThucTe;
         if (id !== 'luongCB') tongPCThucTe += giaTriThucTe;
         if(document.getElementById('r_'+id)) document.getElementById('r_'+id).innerText = fN(giaTriThucTe);
